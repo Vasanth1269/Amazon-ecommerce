@@ -1,7 +1,7 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { OptionsDelivery } from "../data/OptionDelivery.js";
-
+import { priceCents } from "../utils/money.js";
 
  
 
@@ -37,27 +37,27 @@ import { OptionsDelivery } from "../data/OptionDelivery.js";
 
           <div class="payment-summary-row">
             <div>Items (${cart.length}):</div>
-            <div class="payment-summary-money">$ ${(productcost/100).toFixed(2)}</div>
+            <div class="payment-summary-money">$ ${priceCents(productcost)}</div>
           </div>
 
           <div class="payment-summary-row">
             <div>Shipping &amp; handling:</div>
-            <div class="payment-summary-money">$ ${(Shippingcost/100).toFixed(2)}</div>
+            <div class="payment-summary-money">$ ${ priceCents(Shippingcost)}</div>
           </div>
 
           <div class="payment-summary-row subtotal-row">
             <div>Total before tax:</div>
-            <div class="payment-summary-money">$ ${(BeforTax/100).toFixed(2)}</div>
+            <div class="payment-summary-money">$ ${priceCents(BeforTax)}</div>
           </div>
 
           <div class="payment-summary-row">
             <div>Estimated tax (10%):</div>
-            <div class="payment-summary-money">$ ${(Tax/100).toFixed(2)}</div>
+            <div class="payment-summary-money">$ ${priceCents(Tax)}</div>
           </div>
 
           <div class="payment-summary-row total-row">
             <div>Order total:</div>
-            <div class="payment-summary-money">$ ${(totalcost/100).toFixed(2)}</div>
+            <div class="payment-summary-money">$ ${ priceCents(totalcost)}</div>
           </div>
 
           <button class="place-order-button button-primary">

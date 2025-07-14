@@ -3,6 +3,7 @@ import { products } from "../data/products.js";
 import {OptionsDelivery} from  "../data/OptionDelivery.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import {paymentSummary} from "../backend/paymentsummary.js"
+import { priceCents } from "../utils/money.js";
 
 function Ordersummary (){
 let cartdetial= "";
@@ -45,7 +46,7 @@ const deliveryDays =  product_delivery.DeliveryDate
                   ${findItem.name}
                 </div>
                 <div class="product-price">
-                  $${(findItem.priceCents / 100).toFixed(2)}
+                  $${priceCents(findItem.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
