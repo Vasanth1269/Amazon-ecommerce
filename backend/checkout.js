@@ -137,12 +137,7 @@ document.querySelectorAll(".link-delete-js").forEach((button) => {
 });
 document.querySelector(".total-items").innerHTML=` ${cart.length} items`;
 
-/* document.querySelectorAll(".link-updata-js").forEach((button)=>{
-    button.addEventListener('click',()=>{
-     const productId = button.dataset.productid
-     console.log(productId);    
-    })
-  })*/
+
   
     cart.forEach(button => {
   const productId = button.Name;
