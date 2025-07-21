@@ -1,3 +1,4 @@
+
  export const OptionsDelivery =[{
     id:'1' ,
     DeliveryDate:7,
@@ -11,4 +12,6 @@
     DeliveryDate: 1,
     ShippingPrice: 999
 }
+
+
 ];

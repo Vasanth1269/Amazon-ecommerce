@@ -1,3 +1,4 @@
+
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { OptionsDelivery } from "../data/OptionDelivery.js";
@@ -69,8 +70,3 @@ import { priceCents } from "../utils/money.js";
 
 }
 
-    
-    
-    
-    
-     
