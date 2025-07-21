@@ -1,5 +1,5 @@
 
- export let cart;
+ let cart;
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js"
 
 const today = dayjs();
@@ -17,7 +17,7 @@ if (!cart) {
   
 } 
 
- export function saveTocart() {
+ function saveTocart() {
   localStorage.setItem('cart',JSON.stringify(cart))
 };
   
@@ -25,7 +25,7 @@ console.log(cart);
 
   
 
- export function addTocart(productId , value ) {
+  function addTocart(productId , value ) {
   let MatchingItem = cart.find((product) => product.Name === productId);
 
   if (MatchingItem) {
@@ -45,8 +45,7 @@ console.log(randomNumber);
   console.log("Current cart:", cart);
   saveTocart()
 };
-
-export function DeleteItems(productId) {
+ function DeleteItems(productId) {
   const newCart = [];
   cart.forEach((item) => {
     if (item.Name !== productId){
@@ -58,7 +57,7 @@ export function DeleteItems(productId) {
    cart = newCart;
    saveTocart()
 } ;
-
+export { cart, saveTocart, addTocart, DeleteItems };
 
 
  
