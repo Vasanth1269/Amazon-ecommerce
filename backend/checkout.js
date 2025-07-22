@@ -7,6 +7,12 @@ import {paymentSummary} from "../backend/paymentsummary.js"
 import { priceCents } from "../utils/money.js";
 
 function Ordersummary (){
+if (cart.length === 0) {
+  document.querySelector(".order-summary-js").innerHTML = "<p>Your cart is empty.</p>";
+  document.querySelector(".total-items").innerHTML = "0 items";
+  return;
+}
+
 let cartdetial= "";
 
 cart.forEach((productsId)=>{
