@@ -1,15 +1,18 @@
 
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { OptionsDelivery } from "../data/OptionDelivery.js";
+import { getDeliveryOptions } from "./getdeliveryoption.js";
 import { priceCents } from "../utils/money.js";
 
  
 
    
 
- export function paymentSummary() {
+ export async  function paymentSummary(){
+  const  OptionsDelivery  = await getDeliveryOptions(); 
+   
   let productcost = 0 ;
+
   let Shippingcost = 0 ;
     cart.forEach(p => {
   const  productId = p.Name;
@@ -20,11 +23,22 @@ import { priceCents } from "../utils/money.js";
         productcost += priceCents
       }
      const DeliveryOption = p.OptionsDeliveryid;
+     
      const option_delivery = OptionsDelivery.find(dpro=>(DeliveryOption === dpro.id))
+     if(option_delivery){
      const shippingcharge = option_delivery.ShippingPrice
-     Shippingcost += shippingcharge
-   });
+     Shippingcost += shippingcharge;
+     } else{
+      console.log("missing delivery option for:" , DeliveryOption);
+     }  
+      
+  });
+     
+   
+    
+  
 
+     
    
   const BeforTax = productcost + Shippingcost;
   const Tax = BeforTax * 0.1 ;
@@ -68,5 +82,5 @@ import { priceCents } from "../utils/money.js";
    `;
    document.querySelector(".payment-summary-js").innerHTML = paymentsummaryHtml;
 
-}
+ }
 

@@ -1,17 +1,16 @@
 
 import { cart , DeleteItems, saveTocart} from "../data/cart.js";
 import { products } from "../data/products.js";
-import {OptionsDelivery} from  "../data/OptionDelivery.js";
+import { getDeliveryOptions } from "./getdeliveryoption.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import {paymentSummary} from "../backend/paymentsummary.js"
 import { priceCents } from "../utils/money.js";
 
-function Ordersummary (){
-if (cart.length === 0) {
-  document.querySelector(".order-summary-js").innerHTML = "<p>Your cart is empty.</p>";
-  document.querySelector(".total-items").innerHTML = "0 items";
-  return;
-}
+
+async function Ordersummary (){
+
+const OptionsDelivery = await getDeliveryOptions(); 
+
 
 let cartdetial= "";
 
@@ -25,12 +24,19 @@ cart.forEach((productsId)=>{
         } 
     }));
  const delivery_date = productsId.OptionsDeliveryid;
-    
-   
+ console.log(delivery_date)    
+  
 const product_delivery = OptionsDelivery.find(option => option.id === delivery_date)
- 
+if (!product_delivery) {
+  console.error(`Delivery option not found for id: ${delivery_date}`);
+  return; 
+}
+const deliveryDays = parseInt(product_delivery.DeliveryDate);
 
-const deliveryDays =  product_delivery.DeliveryDate
+
+
+
+
 
     
     const today = dayjs()
@@ -128,8 +134,8 @@ const querySelector = document.querySelector(".order-summary-js")
     querySelector.innerHTML=cartdetial;
      paymentSummary()
   }
-
-
+  setUpListeners();
+function setUpListeners() {
 document.querySelectorAll(".link-delete-js").forEach((button) => {
   button.addEventListener('click', () => {
 
@@ -142,20 +148,25 @@ document.querySelectorAll(".link-delete-js").forEach((button) => {
    
   });
 });
+}
 document.querySelector(".total-items").innerHTML=` ${cart.length} items`;
 
 
   
     cart.forEach(button => {
+        if (!button || !button.Name) return;
+
   const productId = button.Name;
 
   const quantitybutton = document.querySelector(`.quantity-label-js-${productId}`);
   const InputButton = document.querySelector(`.quantity-input-js-${productId}`);
   const UpdateButton = document.querySelector(`.link-updata-js-${productId}`);
+  
+ if (!quantitybutton || !InputButton || !UpdateButton) return;
 
     UpdateButton.addEventListener('click', () => {
-      const inner = UpdateButton.innerText.trim()
-      if (inner === "Update") {
+      const Isaving = UpdateButton.innerText.trim().toLowerCase() === "save"
+      if (!Isaving) {
          InputButton.style.display = 'inline';
         quantitybutton.style.display = 'none';
         UpdateButton.innerText = 'Save';
